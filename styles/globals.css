@@ -8,12 +8,22 @@
   }
   body {
     @apply bg-[#141414] text-white
+    /*!scrollbar !scrollbar-track-transparent !scrollbar-thumb-red-500*/
   }
 }
 
 @layer components {
   .menu-link {
     @apply cursor-pointer text-sm font-semibold font-light text-[#e5e5e5] transition duration-[.9] hover:text-[#b3b3b3]
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
   .banner-button {
     @apply flex items-center gap-x-2 px-5 rounded py-1.5 text-sm font-semibold transition-opacity hover:opacity-70

@@ -1,9 +1,8 @@
-"use strict";
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ["image.tmbd.org"]
   },
-  plugins: [require('tailwindcss-textshadow')]
 }
+module.exports = nextConfig;

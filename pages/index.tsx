@@ -1,22 +1,36 @@
 import Head from "next/head"
 import Image from "next/image"
-import { Banner, Header } from "../components/index";
+import { Banner, CardContent, Header } from "../components/index";
 import { Props } from "../models/Props";
 import requests from "../utils/requests";
 
-const Home = ({ netflixOriginals }: Props) => {
+const Home = ({ netflixOriginals,
+                trendingNow,
+                topRated,
+                actionMovies,
+                comedyMovies,
+                horrorMovies,
+                romanceMovies,
+                documentaries }: Props) => {
   console.log(netflixOriginals);
   return (
-      <div className="relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[150vh]">
+      <div className="relative h-screen bg-gradient-to-b  lg:h-[150vh]">
         <Head>
           <title>kekflix</title>
           <link rel="icon" href="/favicon.ico"/>
         </Head>
         <Header/>
         <main className="pl-4 pb-20 lg:space-y-24 lg:pl-16 lg:py-10">
-          <Banner netflixOriginals={netflixOriginals}/>
-          <section>
-
+          <Banner netflixOriginals={trendingNow}/>
+          <section className="space-y-24">
+            <CardContent title="Trending Now" movies={trendingNow} />
+            <CardContent title="Top Rated" movies={topRated} />
+            <CardContent title="Action Thrillers" movies={actionMovies} />
+            {/* My List */}
+            <CardContent title="Comedies" movies={comedyMovies} />
+            <CardContent title="Scary Movies" movies={horrorMovies} />
+            <CardContent title="Romance Movies" movies={romanceMovies} />
+            <CardContent title="Documentaries" movies={documentaries} />
           </section>
         </main>
     </div>
