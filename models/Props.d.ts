@@ -2,11 +2,11 @@ import { Movie } from "./movie";
 
 export interface Props {
   netflixOriginals: Movie[],
-  trendingNow: Movie[],
-  topRated: Movie[],
-  actionMovies: Movie[],
-  comedyMovies: Movie[],
-  horrorMovies: Movie[],
-  romanceMovies: Movie[],
-  documentaries: Movie[]
+  trending: Movie[],
+  topRate: Movie[],
+  actionMovie: Movie[],
+  comedyMovie: Movie[],
+  horrorMovie: Movie[],
+  romanceMovie: Movie[],
+  documentarie: Movie[]
 }

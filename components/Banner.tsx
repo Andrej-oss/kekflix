@@ -5,7 +5,7 @@ import { FaPlay } from "react-icons/fa";
 import { Movie } from "../models/movie";
 
 const imageBaseUrl = 'https://image.tmdb.org/t/p/original/';
-function Banner({ netflixOriginals  }: { netflixOriginals: Movie[]}) {
+function Banner({ netflixOriginals }: { netflixOriginals: Movie[]}) {
   const [movie, setMovie] = useState<Movie | null>(null);
   useEffect(() => {
     setMovie(netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)])
