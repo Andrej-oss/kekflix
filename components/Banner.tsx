@@ -2,11 +2,16 @@ import { InformationCircleIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { modalState, movieState } from "../atoms/modalAtom";
 import { Movie } from "../models/movie";
 
 const imageBaseUrl = 'https://image.tmdb.org/t/p/original/';
 function Banner({ netflixOriginals }: { netflixOriginals: Movie[]}) {
   const [movie, setMovie] = useState<Movie | null>(null);
+  const [ showModal, setShowModal ] = useRecoilState(modalState);
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
+
   useEffect(() => {
     setMovie(netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)])
   }, [netflixOriginals])
@@ -36,8 +41,9 @@ function Banner({ netflixOriginals }: { netflixOriginals: Movie[]}) {
           <button
               className="banner-button bg-[gray]/70"
               onClick={() => {
-                // setCurrentMovie(movie)
-                // setShowModal(true)
+                 setCurrentMovie(movie)
+                 setShowModal(true)
+                setMovie(movie)
               }}
           >
             <InformationCircleIcon className="h-5 w-5 md:h-8 md:w-8" /> More Info

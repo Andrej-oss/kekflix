@@ -1,5 +1,7 @@
 import type { AppProps } from "next/app"
 import { Provider } from "react-redux";
+import { RecoilRoot } from "recoil";
+import { AuthProvider } from "../store/hooks/useAuth";
 import store from "../store/store";
 import "../styles/globals.css"
 
@@ -9,7 +11,11 @@ function MyApp({
                }: AppProps) {
   return (
       <Provider store={store}>
-        <Component {...pageProps} />
+        <RecoilRoot>
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </RecoilRoot>
       </Provider>
   )
 }

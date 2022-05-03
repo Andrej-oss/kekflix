@@ -1,8 +1,10 @@
 import Head from "next/head"
-import { Banner, CardContent, Header } from "../components/index";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { Banner, CardContent, Header, Modal } from "../components/index";
 import { movieHook } from "../store/hooks/hooks";
-
-import requests from "../utils/requests";
+import useAuth from "../store/hooks/useAuth";
+import { modalState } from '../atoms/modalAtom';
 
 const Home = () => {
     const { data: trendingMovies,
@@ -26,8 +28,16 @@ const Home = () => {
   const { data: documentaries,
     isError: isErrorDocumentary,
     isLoading: isLoadingDocumentary } = movieHook.useGetDocumentaryMoviesQuery();
+  const { loading } = useAuth();
+  const showModal = useRecoilValue(modalState);
+  const subscription = false;
+
+  if (loading || subscription) return 'loading...';
+  // if (!subscription) return (
+  //     <div>Plan</div>
+  // )
   return (
-      <div className="relative h-screen bg-gradient-to-b  lg:h-[150vh]">
+      <div className={`relative h-screen bg-gradient-to-b  lg:h-[150vh] ${showModal && '!h-screen overflow-hidden'}`}>
         <Head>
           <title>kekflix</title>
           <link rel="icon" href="/favicon.ico"/>
@@ -46,6 +56,7 @@ const Home = () => {
             {!isLoadingDocumentary && documentaries && <CardContent title="Documentaries" movies={documentaries.results}/>}
           </section>
         </main>
+        {showModal && <Modal/>}
       </div>
   )
 }

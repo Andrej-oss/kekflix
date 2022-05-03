@@ -1,6 +1,8 @@
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import { ArrowRightIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
+import { useRecoilState } from "recoil";
+import { modalState, movieState } from "../atoms/modalAtom";
 import { Movie } from "../models/movie";
 import { CardItem } from "./index";
 

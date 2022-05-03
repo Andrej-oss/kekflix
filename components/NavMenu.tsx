@@ -1,4 +1,4 @@
-function NavMenu(props) {
+function NavMenu() {
   return (
       <ul className="hidden space-x-4 md:flex">
         <li className="menu-link">Home</li>

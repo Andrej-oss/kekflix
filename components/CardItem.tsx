@@ -1,10 +1,19 @@
+import { useRecoilState } from "recoil";
+import { modalState, movieState } from "../atoms/modalAtom";
 import { Movie } from "../models/movie";
 import Image from 'next/image';
 
 const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 function CardItem({ movie } : {movie: Movie}) {
+  const [ showModal, setShowModal ] = useRecoilState(modalState);
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   return (
-      <div className="relative h-28 min-w-[180px] cursor-pointer transition
+      <div
+          onClick={() => {
+        setShowModal(true);
+        setCurrentMovie(movie);
+      }}
+          className="relative h-28 min-w-[180px] cursor-pointer transition
       duration-300 ease-out md:h-36 md:min-w-[260px] md:hover:scale-105">
         <Image layout="fill"
                className="rounded-sm object-fill md:rounded"
