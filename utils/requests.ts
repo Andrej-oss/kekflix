@@ -1,5 +1,6 @@
 const API_KEY = process.env.NEXT_PUBLIC_MOVIEDB_API_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const SERVER_URL = "http://localhost:3000";
 
 const requests = {
       fetchTrending: `${BASE_URL}/trending/all/week?api_key=${API_KEY}&language=en-US`,
@@ -10,6 +11,7 @@ const requests = {
       fetchHorrorMovies: `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=27`,
       fetchRomanceMovies: `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=10749`,
       fetchDocumentaries: `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=99`,
+      fetchProducts: `${SERVER_URL}/api/stripe/products`
 }
 
 export default requests;

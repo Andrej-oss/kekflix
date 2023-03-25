@@ -5,3 +5,4 @@ export {default as comedyApi } from './comedyMovies.api';
 export {default as horrorApi } from './horrorMovies.api';
 export {default as romanceApi } from './romanceMovies.api';
 export {default as documentaryApi } from './documentaryMovies.api';
+export {default as productsApi } from './products.api';

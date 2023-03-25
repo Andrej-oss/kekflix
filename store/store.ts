@@ -4,6 +4,7 @@ import {
   comedyApi,
   documentaryApi,
   horrorApi,
+  productsApi,
   romanceApi,
   topRateApi,
   trendMoviesApi
@@ -18,9 +19,18 @@ const store = configureStore({
     [horrorApi.reducerPath]: horrorApi.reducer,
     [romanceApi.reducerPath]: romanceApi.reducer,
     [documentaryApi.reducerPath]: documentaryApi.reducer,
+    [productsApi.reducerPath]: productsApi.reducer
   },
   middleware: getDefaultMiddleware => {
-    return getDefaultMiddleware().concat(trendMoviesApi.middleware)
+    return getDefaultMiddleware()
+        .concat(trendMoviesApi.middleware)
+        .concat(topRateApi.middleware)
+        .concat(actionApi.middleware)
+        .concat(comedyApi.middleware)
+        .concat(horrorApi.middleware)
+        .concat(romanceApi.middleware)
+        .concat(documentaryApi.middleware)
+        .concat(productsApi.middleware)
   }
 });
 
