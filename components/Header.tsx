@@ -1,12 +1,10 @@
 import { BellIcon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import useAuth from "../store/hooks/useAuth";
 import { NavMenu } from "./index";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { logOut } = useAuth();
 
   useEffect(() => {
     const scrollHandler = () => {
@@ -42,7 +40,6 @@ function Header() {
                 src="https://rb.gy/g1pwyx"
                 width={20}
                 height={20}
-                onClick={logOut}
             />
           </Link>
         </div>

@@ -4,17 +4,20 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Inputs } from "../models/Inputs";
 import useAuth from "../store/hooks/useAuth";
+import axios from "axios";
 
 function Login() {
   const [login, setLogin] = useState(false);
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const { signIn, signUp } = useAuth();
+  const [error, setError] = useState("");
 
   const onSubmit: SubmitHandler<Inputs> =  async ({ email, password }) => {
     if (login) {
       await signIn(email, password);
     } else {
       await signUp(email, password);
+      await axios.post("/api/stripe/customer", {email}).catch(e => setError(e.message))
     }
   };
   return (

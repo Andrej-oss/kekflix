@@ -4,49 +4,31 @@ import {Banner, CardContent, Header, Modal, Plans} from "../components/index";
 import {movieHook} from "../store/hooks/hooks";
 import useAuth from "../store/hooks/useAuth";
 import {modalState} from '../atoms/modalAtom';
+import {useSubscription} from "../store/hooks/useSubscription";
 
 const Home = () => {
-    const {
-        data: trendingMovies,
-        isError: isErrorTrending,
-        isLoading: isLoadingTrending
-    } = movieHook.useGetTrendedMoviesQuery()
-    const {
-        data: topRated,
-        isError: isErrorTopRated,
-        isLoading: isLoadingTopRated
-    } = movieHook.useGetTopRateMoviesQuery();
-    const {
-        data: actionMovies,
-        isError: isErrorAction,
-        isLoading: isLoadingAction
-    } = movieHook.useGetActionMoviesQuery();
-    const {
-        data: horrorMovies,
-        isError: isErrorHorror,
-        isLoading: isLoadingHorror
-    } = movieHook.useGetHorrorMoviesQuery();
-    const {
-        data: comedyMovies,
-        isError: isErrorComedy,
-        isLoading: isLoadingComedy
-    } = movieHook.useGetComedyMoviesQuery();
-    const {
-        data: romanceMovies,
-        isError: isErrorRomance,
-        isLoading: isLoadingRomance
-    } = movieHook.useGetRomanceMoviesQuery();
-    const {
-        data: documentaries,
-        isError: isErrorDocumentary,
-        isLoading: isLoadingDocumentary
-    } = movieHook.useGetDocumentaryMoviesQuery();
-    const {loading} = useAuth();
+    // @ts-ignore
+    const {data: trendingMovies, isLoading: isLoadingTrending} = movieHook.useGetTrendedMoviesQuery()
+    // @ts-ignore
+    const {data: topRated, isLoading: isLoadingTopRated} = movieHook.useGetTopRateMoviesQuery();
+    // @ts-ignore
+    const {data: actionMovies, isLoading: isLoadingAction} = movieHook.useGetActionMoviesQuery();
+    // @ts-ignore
+    const {data: horrorMovies, isLoading: isLoadingHorror} = movieHook.useGetHorrorMoviesQuery();
+    // @ts-ignore
+    const {data: comedyMovies, isLoading: isLoadingComedy} = movieHook.useGetComedyMoviesQuery();
+    // @ts-ignore
+    const {data: romanceMovies, isLoading: isLoadingRomance} = movieHook.useGetRomanceMoviesQuery();
+    // @ts-ignore
+    const {data: documentaries, isLoading: isLoadingDocumentary} = movieHook.useGetDocumentaryMoviesQuery();
+    const { user } = useAuth();
     const showModal = useRecoilValue(modalState);
-    const subscription = false;
+    const subscriptions = useSubscription(user);
+    const isSubscription = !!subscriptions.length;
 
-    if (loading || subscription) return 'loading...';
-    if (!subscription) return <Plans/>
+    // if (loading || !subscription) return 'loading...';
+    if (!isSubscription) return <Plans/>
+
     return (
         <div className={`relative h-screen bg-gradient-to-b  lg:h-[150vh] ${showModal && '!h-screen overflow-hidden'}`}>
             <Head>

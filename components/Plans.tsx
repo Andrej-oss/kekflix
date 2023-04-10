@@ -7,21 +7,22 @@ import {Loader, Table} from "./index";
 import {movieHook} from "../store/hooks/hooks";
 import axios from "axios";
 import {useRouter} from "next/router";
+import useAuth from "../store/hooks/useAuth";
 
 function Plans() {
     const router = useRouter();
+    // @ts-ignore
     const {data: products, isLoading, error} = movieHook.useGetProductsQuery();
     const [selectedPlan, setSelectedPlan] = useState<Product | null>(null);
     const [isBillingLoading, setIsBillingLoading] = useState(false);
-    console.log(products);
+    const { user } = useAuth();
 
     const subscribeToPlan = async () => {
         setIsBillingLoading(true);
         if (!selectedPlan) return;
-        const checkoutUrl = await axios.post("api/stripe/checkout-stripe-session", selectedPlan);
-        console.log(checkoutUrl);
-        router.push(checkoutUrl.data)
+        const checkoutUrl = await axios.post("api/stripe/checkout-stripe-session", {product: selectedPlan, email: user?.email});
         setIsBillingLoading(false)
+        router.push(checkoutUrl.data)
     }
 
     return (

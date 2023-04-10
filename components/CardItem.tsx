@@ -2,8 +2,8 @@ import { useRecoilState } from "recoil";
 import { modalState, movieState } from "../atoms/modalAtom";
 import { Movie } from "../models/movie";
 import Image from 'next/image';
+import {moviePosterUrl} from "../constants/movie";
 
-const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 function CardItem({ movie } : {movie: Movie}) {
   const [ showModal, setShowModal ] = useRecoilState(modalState);
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
@@ -17,8 +17,9 @@ function CardItem({ movie } : {movie: Movie}) {
       duration-300 ease-out md:h-36 md:min-w-[260px] md:hover:scale-105">
         <Image layout="fill"
                className="rounded-sm object-fill md:rounded"
-               src={`${imageBaseUrl}${movie.backdrop_path || movie?.poster_path}`}
+               src={`${moviePosterUrl}${movie.backdrop_path || movie?.poster_path}`}
                unoptimized/>
+          <p className="hidden hover:inline absolute">{movie.name}</p>
       </div>
   );
 }
