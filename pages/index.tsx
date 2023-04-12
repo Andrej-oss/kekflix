@@ -3,8 +3,9 @@ import {useRecoilValue} from "recoil";
 import {Banner, CardContent, Header, Modal, Plans} from "../components/index";
 import {movieHook} from "../store/hooks/hooks";
 import useAuth from "../store/hooks/useAuth";
-import {modalState} from '../atoms/modalAtom';
+import {modalState, movieState} from '../atoms/modalAtom';
 import {useSubscription} from "../store/hooks/useSubscription";
+import userList from "../store/hooks/userList";
 
 const Home = () => {
     // @ts-ignore
@@ -25,7 +26,8 @@ const Home = () => {
     const showModal = useRecoilValue(modalState);
     const subscriptions = useSubscription(user);
     const isSubscription = !!subscriptions.length;
-
+    const movie = useRecoilValue(movieState);
+    const myList = userList(user?.uid);
     // if (loading || !subscription) return 'loading...';
     if (!isSubscription) return <Plans/>
 
@@ -45,6 +47,7 @@ const Home = () => {
                     {!isLoadingAction && actionMovies &&
                         <CardContent title="Action Thrillers" movies={actionMovies.results}/>}
                     {/* My List */}
+                    {!!myList && <CardContent title={"My List"} movies={myList} />}
                     {!isLoadingComedy && comedyMovies && <CardContent title="Comedies" movies={comedyMovies.results}/>}
                     {!isLoadingHorror && horrorMovies &&
                         <CardContent title="Scary Movies" movies={horrorMovies.results}/>}

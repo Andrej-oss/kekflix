@@ -3,8 +3,9 @@ import {ArrowRightIcon} from "@heroicons/react/outline";
 import {useRef, useState} from "react";
 import {Movie} from "../models/movie";
 import {CardItem} from "./index";
+import {DocumentData} from "@firebase/firestore";
 
-function CardContent({title, movies}: { title: string, movies: Movie[] }) {
+function CardContent({title, movies}: { title: string, movies: Movie[] | DocumentData[] }) {
     const refCardItem = useRef<HTMLDivElement>(null);
     const [isMoved, setIsMoved] = useState(false);
     const [isEnd, setIsEnd] = useState(false);

@@ -8,3 +8,4 @@ export { default as Plans } from './Plans';
 export { default as Table } from './Table';
 export { default as Loader } from './Loader';
 export { default as Membership } from './Membership';
+export { default as MenuMobile } from './MenuMobile';

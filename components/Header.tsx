@@ -1,7 +1,7 @@
 import { BellIcon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { NavMenu } from "./index";
+import {MenuMobile, NavMenu} from "./index";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,6 +29,7 @@ function Header() {
               width={100}
               height={100}/>
           <NavMenu/>
+          <MenuMobile />
         </div>
         <div className="flex items-center space-x-4 text-sm font-light">
           <SearchIcon className="hidden sm:inline menu-link" width={20}/>

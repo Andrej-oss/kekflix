@@ -7,14 +7,20 @@ import {useRecoilState} from "recoil";
 import {modalState, movieState} from "../atoms/modalAtom";
 import {Element} from "../models/Element";
 import {Genre} from "../models/genre";
+import {deleteDoc, doc, setDoc} from "@firebase/firestore";
+import {db} from "../firebase";
+import useAuth from "../store/hooks/useAuth";
+import {toast, Toaster} from "react-hot-toast";
 
 function Modal() {
     const [showModal, setShowModal] = useRecoilState(modalState);
     const [movie, setMovie] = useRecoilState(movieState);
     const [trailerUrl, setTrailerUrl] = useState<string>('');
     const [genres, setGenres] = useState<Genre[]>([]);
-    const [muted, setMuted] = useState(false)
-    const [paused, setPaused] = useState(true)
+    const [muted, setMuted] = useState(false);
+    const [paused, setPaused] = useState(true);
+    const [addedToList, setAddedToList] = useState(false);
+    const { user } = useAuth();
 
     useEffect(() => {
         if (!movie) {
@@ -44,11 +50,25 @@ function Modal() {
     const handleClose = () => {
         setShowModal(false);
     }
+
+    const handleMovieList = async () => {
+        if (addedToList) {
+             await deleteDoc(doc(db, "customer", user!.uid, "myList", movie?.id));
+            toast(`Movie ${movie?.title} has been removed from my list`, {
+                duration: 7000,
+            });
+        } else {
+            await setDoc(doc(db, "customer", user!.uid, "myList", String(movie?.id)), movie);
+            toast(`Movie ${movie?.title} has been added to the my list`);
+        }
+    }
+
     return (
         <MuiModal open={showModal} onClose={handleClose}
                   className="fixed !top-20 left-0 right-0 z-50 mx-auto w-full max-w-5xl overflow-hidden overflow-y-scroll no-scrollbar rounded-mg"
         >
             <>
+                <Toaster position="bottom-center"/>
                 <div className="relative pt-[50.25%]">
                     <ReactPlayer
                         style={{position: "absolute", top: 0, left: 0}}
@@ -72,10 +92,12 @@ function Modal() {
                                 {paused ? "Pause" : "Play"}
                             </button>
                             <button className="button-modal" onClick={() => setMuted(!muted)}>
-                                {muted ? (
+                                {addedToList ? (
                                     <CheckIcon className="h-7 w-7"/>
                                 ) : (
-                                    <PlusIcon className="h-7 w-7"/>
+                                    <PlusIcon
+                                        onClick={handleMovieList}
+                                        className="h-7 w-7"/>
                                 )}
                             </button>
                             <button className="button-modal">

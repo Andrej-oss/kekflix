@@ -26,10 +26,9 @@ function Login() {
           <title>kekflix</title>
           <link rel="icon" href="/favicon.ico"/>
         </Head>
-        <Image
+        <img
             src="https://rb.gy/p2hphi"
-            layout="fill"
-            className="-z-10 !hidden opacity-60 sm:!inline"
+            className="-z-10 !hidden opacity-60 sm:!inline absolute"
         />
         <img
             className="absolute cursor-pointer object-contain p-2 md:top-6 md:left-10"

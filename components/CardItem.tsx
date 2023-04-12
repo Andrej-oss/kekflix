@@ -3,8 +3,9 @@ import { modalState, movieState } from "../atoms/modalAtom";
 import { Movie } from "../models/movie";
 import Image from 'next/image';
 import {moviePosterUrl} from "../constants/movie";
+import {DocumentData} from "@firebase/firestore";
 
-function CardItem({ movie } : {movie: Movie}) {
+function CardItem({ movie } : {movie: Movie | DocumentData}) {
   const [ showModal, setShowModal ] = useRecoilState(modalState);
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   return (
