@@ -1,11 +1,10 @@
-import { useGetActionMoviesQuery } from "../../services/actionMovies.api";
-import { useGetComedyMoviesQuery } from "../../services/comedyMovies.api";
-import { useGetDocumentaryMoviesQuery } from "../../services/documentaryMovies.api";
-import { useGetHorrorMoviesQuery } from "../../services/horrorMovies.api";
-import { useGetRomanceMoviesQuery } from "../../services/romanceMovies.api";
-import { useGetTopRateMoviesQuery } from "../../services/topRateMovies.api";
-import { useGetTrendedMoviesQuery } from "../../services/trendMovies.api";
-import {useGetProductsQuery} from "../../services/products.api";
+import { useGetActionMoviesQuery } from "../../services/api/actionMovies.api";
+import { useGetComedyMoviesQuery } from "../../services/api/comedyMovies.api";
+import { useGetDocumentaryMoviesQuery } from "../../services/api/documentaryMovies.api";
+import { useGetHorrorMoviesQuery } from "../../services/api/horrorMovies.api";
+import { useGetRomanceMoviesQuery } from "../../services/api/romanceMovies.api";
+import { useGetTopRateMoviesQuery } from "../../services/api/topRateMovies.api";
+import {useGetProductsQuery} from "../../services/api/products.api";
 
 export const movieHook = {
   useGetDocumentaryMoviesQuery,
@@ -14,6 +13,5 @@ export const movieHook = {
   useGetRomanceMoviesQuery,
   useGetActionMoviesQuery,
   useGetTopRateMoviesQuery,
-  useGetTrendedMoviesQuery,
   useGetProductsQuery
 }

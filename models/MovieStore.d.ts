@@ -6,6 +6,8 @@ export interface MovieStore {
   results: Movie[],
   productsResults: Product[],
   total_pages: number,
+  error?: string | null,
+  status?: 'idle' | 'loading' | 'succeeded' | 'failed';
 }
 
 export interface initMoviesStore extends MovieStore{

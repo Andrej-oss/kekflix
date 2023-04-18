@@ -5,16 +5,24 @@ import {Movie} from "../models/movie";
 import {CardItem} from "./index";
 import {DocumentData} from "@firebase/firestore";
 
-function CardContent({title, movies}: { title: string, movies: Movie[] | DocumentData[] }) {
+function CardContent({title, movies, page, handlePageChange}: { title: string, movies: Movie[] | DocumentData[], page: number, handlePageChange: any }) {
     const refCardItem = useRef<HTMLDivElement>(null);
     const [isMoved, setIsMoved] = useState(false);
-    const [isEnd, setIsEnd] = useState(false);
+    const [edge, setEdge] = useState(-100);
 
+    const randomKeyPrefix = (): number => {
+        return Math.random();
+    }
     const onClickArrow = (direction: string) => {
         setIsMoved(true);
 
         if (refCardItem.current) {
             const {scrollLeft, clientWidth} = refCardItem.current;
+
+            if (scrollLeft  > (edge + clientWidth * 2)  && direction === 'right') {
+                handlePageChange(page + 1);
+                setEdge(scrollLeft);
+            }
             const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
             refCardItem.current.scrollTo({left: scrollTo, behavior: 'smooth'});
         }
@@ -33,7 +41,8 @@ function CardContent({title, movies}: { title: string, movies: Movie[] | Documen
                 <div ref={refCardItem}
                      className="flex items-center scrollbar-hide space-x-0.5 transition duration-400 overflow-x-scroll
                 md:space-x-2.5 md:p-2">
-                    {movies && movies.map(movie => <CardItem key={movie.id} movie={movie}/>)}
+                    {movies && movies.map(movie =>
+                        <CardItem key={movie.id + randomKeyPrefix()} movie={movie}/>)}
                 </div>
                 <ArrowRightIcon className={`absolute z-50 w-8 bottom-0 h-8 opacity-0 group-hover:opacity-100 hover:scale-125
            transition cursor-pointer m-auto top-0 right-2`} onClick={() => onClickArrow('right')}/>
